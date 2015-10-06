@@ -9,6 +9,7 @@
   "author": "Undefined",
   "license": "ISC",
   "dependencies": {
-    "hapi": "^10.4.0"
+    "hapi": "^10.4.0",
+    "mongoose": "^4.1.10"
   }
 }
