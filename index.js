@@ -3,8 +3,11 @@
 var Hapi = require("hapi");
 var halacious = require("halacious");
 var fs = require("fs");
+var hapiMongooseDbConnector = require("hapi-mongoose-db-connector");
 
-var server = new Hapi.Server();
+var server;
+
+server = new Hapi.Server();
 
 server.connection({
   host: "localhost",
@@ -46,3 +49,16 @@ fs.readdir("./lib/resources/", function getFiles(error, files) {
 server.start(function start() {
   console.log("Server running at:", server.info.uri);
 });
+
+// Register Hapi plugins
+server.register({
+  register: hapiMongooseDbConnector,
+  options: {
+    mongodbUrl: "mongodb://10.0.2.53/hyperquaid"
+  }},
+  function getError(error){
+    if(error){
+      throw error;
+    }
+  }
+);
