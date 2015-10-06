@@ -1,5 +1,4 @@
 {
-  "disallowAnonymousFunctions": true,
   "disallowEmptyBlocks": true,
   "disallowKeywordsOnNewLine": ["else"],
   "disallowKeywords": ["with"],
