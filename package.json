@@ -8,7 +8,7 @@
   ],
   "author": "Undefined",
   "license": "ISC",
-  "devDependencies": {
+  "dependencies": {
     "hapi": "^10.4.0"
   }
 }
