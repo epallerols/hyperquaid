@@ -1,0 +1,11 @@
+{
+  "name": "hyperquaid",
+  "version": "0.1.0",
+  "description": "Questions & Answers API",
+  "main": "index.js",
+  "keywords": [
+    "QA"
+  ],
+  "author": "Undefined",
+  "license": "ISC"
+}
