@@ -1,6 +1,10 @@
 {
+  "connection": {
+    "host": "localhost",
+    "port": 8000
+  },
   "mongo": {
-    "location": "10.0.2.53",
-    "port": "27017"
+    "database": "hyperquaid",
+    "host": "10.0.2.53"
   }
 }
