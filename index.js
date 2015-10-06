@@ -5,14 +5,11 @@ var halacious = require("halacious");
 var fs = require("fs");
 var hapiMongooseDbConnector = require("hapi-mongoose-db-connector");
 
-var server;
+const config = require("./etc/conf.json");
 
-server = new Hapi.Server();
+var server = new Hapi.Server();
 
-server.connection({
-  host: "localhost",
-  port: 8000
-});
+server.connection(config.connection);
 
 server.register(halacious, function registerHalacious(error) {
   if (error) {
@@ -36,7 +33,7 @@ fs.readdir("./lib/resources/", function getFiles(error, files) {
   }
 
   files.forEach(function getFile(file) {
-    if (file.indexOf(".js") < 0) {
+    if (file.includes(".js") < 0) {
       return;
     }
 
@@ -54,10 +51,10 @@ server.start(function start() {
 server.register({
   register: hapiMongooseDbConnector,
   options: {
-    mongodbUrl: "mongodb://10.0.2.53/hyperquaid"
+    mongodbUrl: "mongodb://" + config.mongo.host + "/" + config.mongo.database
   }},
-  function getError(error){
-    if(error){
+  function errorHandler(error) {
+    if (error) {
       throw error;
     }
   }
