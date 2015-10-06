@@ -7,7 +7,7 @@
     "QA"
   ],
   "author": "Undefined",
-  "license": "ISC",
+  "license": "MIT",
   "dependencies": {
     "halacious": "^3.3.3",
     "hapi": "^10.4.0",
