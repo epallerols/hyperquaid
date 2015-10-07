@@ -3,7 +3,7 @@
 var Hapi = require("hapi");
 var halacious = require("halacious");
 var fs = require("fs");
-var hapiMongooseDbConnector = require("hapi-mongoose-db-connector");
+var MongoDbConnection = require("./lib/services/mongoDb");
 
 const config = require("./etc/conf.json");
 
@@ -39,23 +39,13 @@ fs.readdir("./lib/resources/", function getFiles(error, files) {
 
     server.route(require("./lib/resources/" + file));
   });
-
 });
 
-// Start the server
-server.start(function start() {
-  console.log("Server running at:", server.info.uri);
-});
-
-// Register Hapi plugins
-server.register({
-  register: hapiMongooseDbConnector,
-  options: {
-    mongodbUrl: "mongodb://" + config.mongo.host + "/" + config.mongo.database
-  }},
-  function errorHandler(error) {
-    if (error) {
-      throw error;
-    }
+MongoDbConnection.connect((error) => {
+  if (error) {
+    process.exit(2);
   }
-);
+
+  // Start the Server
+  server.start(() => console.log("Server running at:", server.info.uri));
+});
