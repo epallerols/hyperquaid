@@ -18,7 +18,7 @@ server.register(halacious, function registerHalacious(error) {
   }
 
   var ns = server.plugins.halacious.namespaces.add({
-    name: "Coolblue",
+    name: "hackathon",
     description: "Hackathon",
     prefix: "hack"
   });
