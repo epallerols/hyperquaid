@@ -11,7 +11,7 @@ hyperquaid:
   volumes:
   - .:/src
   environment:
-  - VIRTUAL_HOST=hyperquaid.works.ok
+  - VIRTUAL_HOST=hyperquaid.works.com
 hyperquaid-nginx:
   image: jwilder/nginx-proxy
   volumes:
