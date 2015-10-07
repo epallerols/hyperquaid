@@ -2,3 +2,19 @@ mongo:
   image: mongo
   ports:
   - "27017:27017"
+hyperquaid:
+  build: .
+  expose:
+  - "8000"
+  links:
+  - mongo
+  volumes:
+  - .:/src
+  environment:
+  - VIRTUAL_HOST=hyperquaid.works.ok
+hyperquaid-nginx:
+  image: jwilder/nginx-proxy
+  volumes:
+  - /var/run/docker.sock:/tmp/docker.sock:ro
+  ports:
+  - "80:80"
