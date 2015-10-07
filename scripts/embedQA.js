@@ -21,9 +21,20 @@ $(() => {
           return; // skip, no answers yet for this question
         }
 
-        q._embedded["hack:answers"].forEach((answer) => $qanda.append(`
-            <div><h4>${q.question}</h4><p>${answer.answer}</p></div>
-        `));
+        let answers = q._embedded["hack:answers"].reduce((i, answer) => {
+          return `${i} <li class="question--answer">${answer.answer}</li>`;
+        }, "");
+
+        $qanda.append(`
+          <div class="question">
+            <h4 class="question--title">${q.question}</h4>
+            <div class="question--info">
+              <span>on ${q.createdAt}</span>
+              | <span>Upvotes: ${q.positive}</span>
+            </div>
+            <ul>${answers}</ul>
+          </div>
+        `);
       });
     });
   });
