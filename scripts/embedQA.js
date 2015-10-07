@@ -13,7 +13,7 @@ $(() => {
       }
 
       let questions = resp._embedded["hack:questions"];
-      console.log(resp._embedded["hack:questions"])
+
       $qanda.html("");
 
       questions.forEach((q) => {
