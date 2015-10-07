@@ -19,7 +19,7 @@ function init() {
 
     console.log("adding data to db...");
     data.forEach((d) => {
-      QAServvie.add(d, (error, data) => {
+      QAServvie.createQaid(d, (error, data) => {
         if (error) {
           throw error;
         }
