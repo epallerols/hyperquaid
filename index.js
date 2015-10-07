@@ -4,6 +4,7 @@ var Hapi = require("hapi");
 var halacious = require("halacious");
 var fs = require("fs");
 var MongoDbConnection = require("./lib/services/mongoDb");
+var decoraters = require("./lib/decoraters");
 
 const config = require("./etc/conf.json");
 
@@ -22,10 +23,22 @@ server.register(halacious, function registerHalacious(error) {
     prefix: "hack"
   });
 
-  ns.rel({ name: "qaid", description: "A collection of questions" });
-  ns.rel({ name: "question", description: "A question" });
-  ns.rel({ name: "answer", description: "An answer" });
+  ns.rel({
+    name: "qaid",
+    description: "A collection of questions"
+  });
+  ns.rel({
+    name: "question",
+    description: "A question"
+  });
+  ns.rel({
+    name: "answer",
+    description: "An answer"
+  });
 });
+
+// Add decoraters
+decoraters(server);
 
 fs.readdir("./lib/resources/", function getFiles(error, files) {
   if (error) {
