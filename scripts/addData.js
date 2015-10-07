@@ -18,8 +18,8 @@ function init() {
     }
 
     console.log("adding data to db...");
-    data.forEach(function loopItBaby(d) {
-      QAServvie.add(d, function getResult(error, data) {
+    data.forEach((d) => {
+      QAServvie.add(d, (error, data) => {
         if (error) {
           throw error;
         }
