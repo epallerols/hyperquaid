@@ -13,9 +13,11 @@
     "hapi": "^10.4.0",
     "mongoose": "^4.1.10"
   },
-  "repository":
-  {
+  "devDependencies": {
+    "faker": "*"
+  },
+  "repository": {
     "type": "git",
-    "url" : "https://github.com/epallerols/hyperquaid.git"
+    "url": "https://github.com/epallerols/hyperquaid.git"
   }
 }
