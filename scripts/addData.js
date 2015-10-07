@@ -1,5 +1,6 @@
 var MongoDbConnection = require("../lib/services/mongoDb");
 var QAServvie = require("../lib/services/QAService");
+var objectId = require("mongoose").Types.ObjectId;
 
 var data;
 
@@ -30,45 +31,60 @@ data = [{
   approved: true,
   questions: [{
     question: "How are you?",
+    _id: new objectId(),
     approved: true,
     answers: [{
-      answer: "fucked up!"
+      answer: "fucked up!",
+      _id: new objectId(),
     }, {
       answer: "sleepy",
+      _id: new objectId(),
       approved: true
     }, {
       answer: "it is not your problem",
+      _id: new objectId(),
       approved: true
     }, {
       answer: "fine thank you!",
+      _id: new objectId(),
       approved: true
     }]
   }, {
     question: "Is this product the best one",
+    _id: new objectId(),
     answers: [{
-      answer: "probably"
+      answer: "probably",
+      _id: new objectId(),
     }, {
-      answer: "of course no!"
+      answer: "of course no!",
+      _id: new objectId(),
     }]
   }]
 }, {
   questions: [{
     question: "How are you?",
+    _id: new objectId(),
     answers: [{
-      answer: "fucked up!"
+      answer: "fucked up!",
+      _id: new objectId(),
     }, {
-      answer: "sleepy"
+      answer: "sleepy",
+      _id: new objectId(),
     }, {
-      answer: "it is not your problem"
+      answer: "it is not your problem",
+      _id: new objectId(),
     }, {
-      answer: "fine thank you!"
+      answer: "fine thank you!",
+      _id: new objectId(),
     }]
   }, {
     question: "when did you get it at home",
     approved: true,
+    _id: new objectId(),
     answers: [{
       answer: "5 min ago!",
-      approved: true
+      approved: true,
+
     }, {
       answer: "I ate it!",
       approved: false
@@ -84,16 +100,20 @@ data = [{
       approved: true
     }, {
       answer: "yes it is the best one",
+      _id: new objectId(),
       approved: true
     }, {
       answer: "I don't care",
+      _id: new objectId(),
       approved: true
     }, {
       answer: "fine thank you!",
+      _id: new objectId(),
       approved: true
     }]
   }, {
     question: "I can fly, can you?",
+    _id: new objectId(),
     approved: false
   }]
 }];
