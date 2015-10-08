@@ -1,11 +1,14 @@
 "use strict";
 
-var expect = require("chai").expect;
+var _ = require("lodash");
+var chai = require("chai");
+var expect = chai.expect;
 var supertest = require("supertest");
 var config = require("../etc/conf");
 var MongoDbConnection = require("./../../lib/services/mongoDb");
 var QA = require("./../../lib/models").QA;
 
+chai.use(require("chai-as-promised"));
 var api = supertest(config.host + ":" + config.port);
 
 before(() => {
@@ -13,6 +16,12 @@ before(() => {
     if (error) {
       throw error;
     }
+  });
+});
+
+afterEach((done) => {
+  QA.remove({}, () => {
+    done();
   });
 });
 
@@ -49,12 +58,6 @@ describe("GET /", () => {
     beforeEach((done) => {
       qa = new QA();
       qa.save(() => {
-        done();
-      });
-    });
-
-    afterEach((done) => {
-      QA.remove({}, () => {
         done();
       });
     });
@@ -96,6 +99,32 @@ describe("GET /", () => {
             done();
           });
       });
+    });
+  });
+});
+
+describe("POST /", () => {
+  var newQaid = {
+    approved: true
+  };
+
+  it("redirects to the new qaid", (done) => {
+    api.post("/")
+    .send(newQaid)
+    .end((error, result) => {
+      expect(result.status).to.equal(302);
+      QA.findOne().then((quaid) => {
+        expect(_.trimLeft(result.headers.location, "/")).to.eql(quaid._id.toString());
+        done();
+      });
+    });
+  });
+
+  it("created a new qaid", () => {
+    api.post("/")
+    .send(newQaid)
+    .end((error, result) => {
+      return expect(QA.count({})).to.eventually.equal(1);
     });
   });
 });
