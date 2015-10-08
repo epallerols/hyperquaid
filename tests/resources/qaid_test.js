@@ -2,9 +2,11 @@
 
 var expect = require("chai").expect;
 var supertest = require("supertest");
-var api = supertest("http://hyperquaid.works.com");
+var config = require("../etc/conf");
 var MongoDbConnection = require("./../../lib/services/mongoDb");
 var QA = require("./../../lib/models").QA;
+
+var api = supertest(config.host + ":" + config.port);
 
 before(() => {
   MongoDbConnection.connect((error) => {
@@ -17,25 +19,28 @@ before(() => {
 describe("GET /", () => {
   it("returns a 200 status", (done) => {
     api.get("/")
-    .expect(200, done);
+      .expect(200, done);
   });
 
   it("contains a link to self", (done) => {
     api.get("/")
-    .end((error, result) => {
-      expect(result.body._links.self).to.deep.equal({ href: "/"});
-      done();
-    });
+      .end((error, result) => {
+        expect(result.body._links.self).to.deep.equal({
+          href: "/"
+        });
+        done();
+      });
   });
 
   it("does not contain a qaid array", (done) => {
     api.get("/")
-    .end((error, result) => {
-      var links = result.body._links;
+      .end((error, result) => {
+        var links = result.body._links;
 
-      expect(links).to.not.have.property("hack:qaid");
-      done();
-    });
+        expect(links).to.not.have.property("hack:qaid");
+
+        done();
+      });
   });
 
   context("when a qaid exists", () => {
@@ -56,12 +61,14 @@ describe("GET /", () => {
 
     it("contains a link to that qaid", (done) => {
       api.get("/")
-      .end((error, result) => {
-        var qaidLink = result.body._links["hack:qaid"];
+        .end((error, result) => {
+          var qaidLink = result.body._links["hack:qaid"];
 
-        expect(qaidLink).to.eql({ href: "/" + qa._id});
-        done();
-      });
+          expect(qaidLink).to.eql({
+            href: "/" + qa._id
+          });
+          done();
+        });
     });
 
     context("when another quaid exists", () => {
@@ -76,13 +83,18 @@ describe("GET /", () => {
 
       it("contains links to both qaids", (done) => {
         api.get("/")
-        .end((error, result) => {
-          var qaidLinkArray = result.body._links["hack:qaid"];
+          .end((error, result) => {
+            var qaidLinkArray = result.body._links[
+              "hack:qaid"];
 
-          expect(qaidLinkArray[0]).to.eql({ href: "/" + qa._id});
-          expect(qaidLinkArray[1]).to.eql({ href: "/" + anotherQa._id});
-          done();
-        });
+            expect(qaidLinkArray[0]).to.eql({
+              href: "/" + qa._id
+            });
+            expect(qaidLinkArray[1]).to.eql({
+              href: "/" + anotherQa._id
+            });
+            done();
+          });
       });
     });
   });
