@@ -1,3 +1,7 @@
+.question {
+  margin-top: 2rem;
+}
+
 .question + .question {
     padding-top: 1rem;
 }
@@ -15,4 +19,9 @@
 .question--answer + .question--answer {
     border-top: 1px solid #ddd;
     margin-top: 1rem;
+}
+
+.post_question {
+  font-size: 15px;
+  width: 50%;
 }
