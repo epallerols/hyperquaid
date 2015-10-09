@@ -4,7 +4,8 @@ $(() => {
   "use strict";
 
   var $qanda = $(".js-q-and-a");
-  var url = "http://localhost:8000/5614e8bded37eded3f16a9e6";
+
+  const url = "http://localhost:8000/56164c18b4cff3ba5895b208";
 
   fetch(url).then((response) => {
     response.json().then((resp) => {
@@ -14,7 +15,10 @@ $(() => {
 
       let questions = resp._embedded["hack:questions"];
 
-      $qanda.html("");
+      $qanda.html(`
+        <input name="question" id="post_question" class="post_question" value"" placeholder="Heb je een vraag?">
+        <a href="submit" id="submit_question" alt="Submit">Submit</a>
+      `);
 
       questions.forEach((q) => {
         if (!q._embedded || !q._embedded["hack:answers"] || !q._embedded["hack:answers"].length) {
@@ -36,6 +40,15 @@ $(() => {
           </div>
         `);
       });
+
+      $("body").on("click", "#submit_question", function (event) {
+        event.preventDefault();
+
+        $.post(url, { question: $("#post_question").val() }, function (data) {
+          $("#post_question").remove();
+          $("#submit_question").replaceWith("Hey dat is een super lekker vraag! Super dankjewel!");
+        });
+      });
     });
-  });
+  }).catch((error) => $("#direct-naar-q-and-a, #vagren-link").remove());
 });
